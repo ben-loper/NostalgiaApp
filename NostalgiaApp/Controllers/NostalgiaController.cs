@@ -1,7 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using NostalgiaApp.Data;
 using NostalgiaApp.Models;
-using System.Collections.Generic;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Processing;
+using System;
+using System.IO;
 
 namespace NostalgiaApp.Controllers
 {
@@ -24,9 +28,14 @@ namespace NostalgiaApp.Controllers
         [Route("list")]
         public IActionResult ExistingNostalgiaReminders()
         {
-            ExistingNostalgiasViewModel vm = new ExistingNostalgiasViewModel();
+            ExistingNostalgiasViewModel vm = new ExistingNostalgiasViewModel();          
 
-            vm.Nostalgias.AddRange(_nostalgiaDao.GetNostalgias());
+            var nostalgias = _nostalgiaDao.GetNostalgias();
+
+            foreach(var nostalgia in nostalgias)
+            {
+                vm.Nostalgias.Add(mapNostalgiaModel(nostalgia));                
+            }           
             
             return View(vm);
         }
@@ -40,10 +49,48 @@ namespace NostalgiaApp.Controllers
 
         [HttpPost]
         [Route("add")]
-        public IActionResult AddNostalgiaToDb([Bind("Title,Description")] Nostalgia nostalgia)
-        {
+        public IActionResult AddNostalgiaToDb([Bind("Title,Description")] Nostalgia nostalgia, IFormFile File)
+        {                      
+            if (File != null)
+            {
+                if (File.Length > 0)
+                {
+                    var image = Image.Load(File.OpenReadStream());
+                    image.Mutate(x => x.Resize(256, 256));
+                    
+                    string imageString = image.ToString();
+
+                    using (var ms = new MemoryStream())
+                    {                        
+                        image.Save(ms, Image.DetectFormat(File.OpenReadStream()));
+                        nostalgia.Image = ms.ToArray();
+                    }
+                }
+            }
+
             _nostalgiaDao.SaveNostalgia(nostalgia);
             return RedirectToAction("ExistingNostalgiaReminders");            
+        }
+
+        private NostalgiaViewModel mapNostalgiaModel(Nostalgia nostalgia)
+        {
+            NostalgiaViewModel model = new NostalgiaViewModel();
+
+            model.Id = nostalgia.Id;
+            model.Title = nostalgia.Title;
+            model.Description = nostalgia.Description;
+            model.CreateDate = nostalgia.CreateDate;
+            model.NextReminderDate = nostalgia.NextReminderDate;
+
+            if (nostalgia.Image != null && nostalgia.Image.Length > 0)
+            {
+                string imageBase64Data =
+                    Convert.ToBase64String(nostalgia.Image);
+
+                model.Image = string.Format("data:image/jpg;base64,{0}", imageBase64Data);
+            }
+
+            return model;
         }
     }
 }

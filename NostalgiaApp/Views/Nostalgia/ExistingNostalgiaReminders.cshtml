@@ -19,6 +19,10 @@
         {
             <p>@nostalgia.Title</p>
             <p>@nostalgia.Description</p>
+            @if(nostalgia.Image != null && nostalgia.Image.Length > 0)
+            {
+                <img src="@nostalgia.Image" />
+            }
         }
     }
 </div>

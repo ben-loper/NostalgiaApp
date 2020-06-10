@@ -7,6 +7,6 @@ namespace NostalgiaApp.Models
 {
     public class ExistingNostalgiasViewModel
     {
-        public List<Nostalgia> Nostalgias = new List<Nostalgia>();
+        public List<NostalgiaViewModel> Nostalgias = new List<NostalgiaViewModel>();
     }
 }
