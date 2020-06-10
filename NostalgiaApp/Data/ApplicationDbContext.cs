@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using NostalgiaApp.Models;
 
 namespace NostalgiaApp.Data
 {
@@ -12,5 +13,7 @@ namespace NostalgiaApp.Data
             : base(options)
         {
         }
+
+        public DbSet<Nostalgia> Nostalgias { get; set; }
     }
 }
