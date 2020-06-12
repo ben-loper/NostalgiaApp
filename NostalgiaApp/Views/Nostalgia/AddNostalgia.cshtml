@@ -8,8 +8,17 @@
 }
 
 <form action="add" method="post" enctype="multipart/form-data">
-    <input type="text" name="title" placeholder="title" />
-    <input type="text" name="description" placeholder="description" />
-    <input type="file" name="file" />
-    <button type="submit">Submit</button>
+    <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" id="title" name="title" class="form-control" placeholder="title" />
+    </div>
+    <div class="form-group">
+        <label for="description">Description</label>
+        <textarea id="description" name="description" class="form-control" rows="5" placeholder="description"></textarea>
+    </div>    
+    <div class="form-group">
+        <label for="file-upload">Example file input</label>
+        <input type="file" class="form-control-file" id="file-upload" name="file" />
+    </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
 </form>

@@ -4,25 +4,33 @@
 @model ExistingNostalgiasViewModel
 
 @section AddToHead{
-    <link href="@Url.Content("~/css/index.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/nostalgia-list.css")" rel="stylesheet" type="text/css" />
 }
 
 <div>
-    <a>Create a new Nostalgia</a>
-    @if(Model.Nostalgias.Count == 0)
-    {
-        <p>You have no Nostalgias!</p>
-    }
-    else
-    {
-        foreach(var nostalgia in Model.Nostalgias)
+    <div id="navigation-btn-div">
+        <a id="add-nostalgia-btn" asp-controller="Nostalgia" asp-action="AddNostalgia" class="btn btn-lg btn-primary">Create a new Nostalgia</a>
+    </div>
+    <div id="nostalgia-list-container">
+        @if (Model.Nostalgias.Count == 0)
         {
-            <p>@nostalgia.Title</p>
-            <p>@nostalgia.Description</p>
-            @if(nostalgia.Image != null && nostalgia.Image.Length > 0)
+            <p>You have no Nostalgias!</p>
+        }
+        else
+        {
+            foreach (var nostalgia in Model.Nostalgias)
             {
-                <img src="@nostalgia.Image" />
+                <div class="nostalgia-div">
+                    <h3>@nostalgia.Title</h3>
+                    <p>@nostalgia.Description</p>
+                    @*if (nostalgia.Image != null && nostalgia.Image.Length > 0)
+                        {
+                            <img src="@nostalgia.Image" />
+                        }*@
+                    <p>@nostalgia.NextReminderDate.Month/@nostalgia.NextReminderDate.Day/@nostalgia.NextReminderDate.Year</p>
+
+                </div>
             }
         }
-    }
-</div>
+        </div>
+    </div>

@@ -1,12 +1,15 @@
 ﻿@{
     ViewData["Title"] = "Nostalgia Page";
 }
-@section AddToHead{
-    <link href="@Url.Content("~/css/index.css")" rel="stylesheet" type="text/css" />
+@section AddToHead{    
+    <link href="@Url.Content("~/css/nostalgia-index.css")" rel="stylesheet" type="text/css" />
 }
 
-<div>
-    <h1 class="display-4">Nastolgia Landing Page</h1>
-    <p>View Nostalgia Reminders</p>
-    <p>Add New Reminder</p>
+<div id="title-div">
+    <h1 class="display-4">Nastolgia Landing Page</h1>    
+</div>
+
+<div id="nav-div">
+    <a class="btn-nav-anchor" asp-controller="Nostalgia" asp-action="ExistingNostalgiaReminders"><div class="action-btn">View Nostalgia Reminders</div></a>
+    <a class="btn-nav-anchor" asp-controller="Nostalgia" asp-action="AddNostalgia"><div class="action-btn">Add New Reminder</div></a>
 </div>

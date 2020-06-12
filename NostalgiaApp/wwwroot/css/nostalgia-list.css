@@ -1,0 +1,21 @@
+﻿#navigation-btn-div {
+    text-align: center;
+}
+
+#add-nostalgia-btn {
+    color: white;
+}
+
+#nostalgia-list-container {
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
+}
+
+.nostalgia-div{
+    background-color: white;
+    padding-left: 10px;
+    border-radius: 20px;
+}

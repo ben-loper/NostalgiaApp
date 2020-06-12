@@ -1,0 +1,28 @@
+﻿#nav-div {
+    display: grid;
+    grid-template-columns: 45% 45%;
+}
+
+#title-div {
+    background-color: white;
+    display: inline-block;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.action-btn {
+    margin-top: 20px;
+    background-color: #1fc8db;
+    padding: 30px;
+    width: 300px;
+    color: white;
+    border: solid 1px white;
+}
+
+.btn-nav-anchor:hover {
+    text-decoration: none;    
+}
+
+.btn-nav-anchor:visited {
+    text-decoration: none;
+}
